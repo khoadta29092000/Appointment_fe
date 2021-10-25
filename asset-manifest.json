@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Appointment_fe/static/css/main.27b1a5d3.chunk.css",
-    "main.js": "/Appointment_fe/static/js/main.b7518044.chunk.js",
-    "main.js.map": "/Appointment_fe/static/js/main.b7518044.chunk.js.map",
+    "main.js": "/Appointment_fe/static/js/main.552d0854.chunk.js",
+    "main.js.map": "/Appointment_fe/static/js/main.552d0854.chunk.js.map",
     "runtime-main.js": "/Appointment_fe/static/js/runtime-main.c996e336.js",
     "runtime-main.js.map": "/Appointment_fe/static/js/runtime-main.c996e336.js.map",
     "static/css/2.6cf0a493.chunk.css": "/Appointment_fe/static/css/2.6cf0a493.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.6cf0a493.chunk.css",
     "static/js/2.8efed98a.chunk.js",
     "static/css/main.27b1a5d3.chunk.css",
-    "static/js/main.b7518044.chunk.js"
+    "static/js/main.552d0854.chunk.js"
   ]
 }
