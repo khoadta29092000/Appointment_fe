@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import Profile from "./Profile";
 import UploadAndDisplayImage from "./UploadImage";
 import { useHistory } from 'react-router-dom';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function UpdateProfile(props) {
     console.log("la v do", props.location)
     const history = useHistory();
     const [postList, setpostList] = useState([]);
+    const [open, setOpen] = useState(false);
     const [name, setName] = useState("")
     const [phone, setPhone] = useState("")
     const [address, setAddress] = useState("")
@@ -14,9 +22,12 @@ function UpdateProfile(props) {
     const [allErrorr, setAllErrorr] = useState(false)
     const [nameErrorr, setNameErrorr] = useState(false)
     const [phoneErrorr, setPhoneErrorr] = useState(false)
+    const [message, setMessage] = useState('')
     const validPhone = new RegExp(/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/);
     const validName = new RegExp("(?=.{5,30}$)");
     let body;
+
+
     useEffect(() => {
         featchPostList()
         setName(props?.location?.state?.name?.fullName)
@@ -52,7 +63,6 @@ function UpdateProfile(props) {
         if (name != undefined && name != ""
             && phone != undefined && phone != ""
             && address != undefined && address != ""
-            
         ) {
             setAllErrorr(false)
             if (validName.test(name)) {
@@ -75,9 +85,15 @@ function UpdateProfile(props) {
                         .then(result => {
                             console.log(result)
                             if (result?.resultCode === 1) {
-                                alert("update thanh công")
+                                setOpen(true)
+                                setMessage("update thanh công")
+                                alert("update thành công")
                                 //props?.location.onReload()
+                                history.push("/")
+
                                 window.location.reload()
+
+
                             }
                         }
 
@@ -86,15 +102,23 @@ function UpdateProfile(props) {
                             throw ('Invalid Token')
                         })
                     return body
-                }else{ setPhoneErrorr(true)}
-            }else{ setNameErrorr(true)}
-        }else{
+                } else { setPhoneErrorr(true) }
+            } else { setNameErrorr(true) }
+        } else {
             setAllErrorr(true)
         }
 
 
     }
 
+
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     let dataRole;
     if (props?.location?.state?.name?.roleID == '1') {
@@ -104,9 +128,9 @@ function UpdateProfile(props) {
                 <td className="w-902">
 
                     < select onChange={e => setSpecializeID(e.target.value)} value={props?.location?.state?.name?.specializeID} className="outline-none border-gray-400   border-2 ml-2  rounded-2xl w-3/6  h-12" >
-                    <option className="text-gray-300 hidden text-xl" value={0} >Select Specialize...</option>
-                         <option className="text-gray-300 hidden text-xl" value={0} >Select Specialize...</option>{postList.map((post, index) => {
-                           
+                        <option className="text-gray-300 hidden text-xl" value={0} >Select Specialize...</option>
+                        <option className="text-gray-300 hidden text-xl" value={0} >Select Specialize...</option>{postList.map((post, index) => {
+
                             return <option value={post?.id} key={post.id}>{post.name} </option>
                         })}
                     </select >
@@ -121,6 +145,11 @@ function UpdateProfile(props) {
                 <UploadAndDisplayImage props={props?.location?.state?.name} />
             </div>
             <div className="font-bold my-4 col-span-2 w-full border-l-2 pl-24">
+                <Snackbar open={open} autoHideDuration={5000} onClose={handleClose} className="float-left w-screen">
+                    <Alert onClose={handleClose} severity="success" className="float-left" sx={{ width: "200%", float: "right" }}>
+                        {message}
+                    </Alert>
+                </Snackbar>
                 <h3 className="text-5xl mb-4 b">Personal profile</h3>
                 <hr className="mb-4 w-4/6"></hr>
                 <div className="ml-4">
@@ -136,10 +165,10 @@ function UpdateProfile(props) {
                             <td className="text-right w-0"> <p className="text-xl">Name:</p></td>
                             <td className="w-902"><input onChange={e => setName(e.target.value)} className="outline-none border-gray-400   border-2 ml-2  rounded-2xl w-3/6  h-12" value={name} /></td>
                         </tr>
-                        <tr className="h-20" >
+                        {/* <tr className="h-20" >
                             <td className="text-right w-16"> <p className="text-xl">Id:</p></td>
                             <td className="w-902 "><input className=" outline-none border-gray-400   border-2 ml-2  rounded-2xl w-3/6  h-12" value="" /></td>
-                        </tr>
+                        </tr> */}
                         {dataRole}
                         <tr className="h-20">
                             <td className="text-right w-16"> <p className="text-xl">Phone:</p></td>

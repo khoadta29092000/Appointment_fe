@@ -217,10 +217,10 @@ body {}
 }
 
 #book {
-    margin-top: 40%;
+    margin-top: 50px;
     margin-left: 9%;
-    width: auto;
-    max-width: 249px;
-    height: 242px;
-    max-height: auto;
+    
+    width: 249px;
+    height: 400px;
+   
 }
