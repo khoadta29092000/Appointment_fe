@@ -36,9 +36,9 @@ export default function SubjectView(props) {
 
     }, []);
 
-console.log("cc",props)
 
-
+const mentorForSubject = props?.location?.state?.name?.mentorList?.map((mentor, index) =>{return mentor.fullName})
+console.log("cc",mentorForSubject)
     return (
         <div className="mt-20 ">
             <Header >
@@ -68,7 +68,7 @@ console.log("cc",props)
                                 </tr>
                                 <tr className="m-20 text-xl">
                                     <td className="float-right py-5">Teacher:</td>
-                                    <td className="text-left pl-10 py- text-xanhnhat5">{props.location.state.name.author}</td>
+                                    <td className="text-left pl-10 py- text-xanhnhat">{mentorForSubject.join(", ")}</td>
                                 </tr>
                                 <tr className="m-20 text-xl">
                                     <td className="float-right py-5">Description:</td>

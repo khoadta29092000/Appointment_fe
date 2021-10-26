@@ -56,7 +56,7 @@ export default function ModalForMentor(props) {
             .then(result => {
                 console.log(result)
                 if (result?.resultCode === 1) {
-                    alert("update thanh công")
+                   
                     props?.onUpdate();
                     props?.onModal()
                     props.parentCallback(result?.message);

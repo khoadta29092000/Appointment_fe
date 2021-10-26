@@ -55,7 +55,7 @@ function Header(props) {
               name: postList
             }
           }} className=" " >
-            <div className="border-2  hover:bg-yellow-100 border-white rounded-5xl  mt-1 p-1   h-12 pr-3">
+            <div className="border-2  hover:bg-xanhnhat border-white rounded-5xl  mt-1 p-1   h-12 pr-3">
               <p className="float-right text-sm mt-2  ml-4 ">{postList.fullName}</p>
               <img src={postList.avatar}
                 className="rounded-full ml-3000 w-8 h-8  mt-3000 mx-8 " />
@@ -84,7 +84,7 @@ function Header(props) {
         <NavLink activeStyle={{ backgroundColor: 'white' }} to="/admindashboard/user" className="my-link leading-80 "><li><p>Admin Dashboard</p></li></NavLink>)
     }
     else if (postList.roleID == '2') {
-      adminDashboardButtons = (<NavLink activeStyle={{ backgroundColor: 'white' }} to="/mentordashboard " className="my-link leading-80"><li><p>Mentor Dashboard</p></li></NavLink>)
+      adminDashboardButtons = (<NavLink activeStyle={{ backgroundColor: 'white' }} to="/MentorDashboard " className="my-link leading-80"><li><p>Mentor Dashboard</p></li></NavLink>)
     }
 
   } else {  

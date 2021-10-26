@@ -37,7 +37,7 @@ function App() {
 
     return (
 
-      <Router>
+      <Router basename='/Appointment_fe/'>
         <ScrollToTop />  
         <Switch>
           

@@ -6,15 +6,66 @@ import Footer from "../../Footer";
 import Header from '../../Header';
 import subjectApi from '../../../api/subjectApi';
 import accountApi from "../../../api/accountApi";
+import queryString from 'query-string';
+import GetBooking from "./GetBooking";
 
 export default function Booking(props) {
 
     const [postSubjectList, setpostSubjectList] = useState([]);
     const [postAccountList, setPostAccountList] = useState([]);
+    const [mentorID, setMentorID] = useState("")
+    // // // const [fromDate, setfromDate] = useState("")
+    // // // const [toDate, setToDate] = useState("")
+    // // // const [page, setPage] = useState("")
+    // // // const [pageSize, setPageSize] = useState("")
+    // // const [filtersSearch, setFiltersSearch] = useState([
+    // //     mentorID: 1,
+    // //     // fromDate  ,
+    // //     // toDate ,
+    // //     // page ,
+    // //     // pageSize ,
+    // // ])
+    // console.log(filtersSearch)
+    const [postList, setpostList] = useState([])
     useEffect(() => {
         featchSubjectList()
         featchAccountList()
     }, []);
+
+    const [filters, setFilters] = useState({
+        mentorID: mentorID,
+      
+        // title_like: '',
+      })
+    
+   
+        async function SearchBookingList() {
+          try {
+            console.log(filters)
+            const paramsString =  queryString.stringify(filters);
+            const requestURL = `http://118.69.123.51:5000/test/api/appointment/search_available_appointment?mentorID=${mentorID}`;
+    
+            const response = await fetch(requestURL, {
+                method: `GET`,
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+              });
+            const responseJSON = await response.json();
+            
+            const { data, pagination } = responseJSON;
+            setpostList(responseJSON?.data?.rows);
+            console.log("search ket qua ne", responseJSON?.data);
+           
+          } catch (error) {
+            console.log('Fail to fetch product list: ', error)
+          }
+        }
+    
+       
+   
+    
 
     const featchAccountList = async () => {
 
@@ -26,7 +77,6 @@ export default function Booking(props) {
         } else if (response?.resultCode === -1) {
             alert(response.message)
         } else {
-
             setPostAccountList(response?.rows)
         }
 
@@ -47,14 +97,12 @@ export default function Booking(props) {
         }
 
     }
-    console.log("props booking", postSubjectList)
+  
 
     const [startDate, setStartDate] = useState(new Date());
 
-
-
-
-    console.log(postAccountList, "day la postAccountList");
+    console.log( "search thu ne", mentorID);
+    console.log("filter", filters)
     return (
 
 
@@ -63,11 +111,11 @@ export default function Booking(props) {
             <h2 className="ml-36  text-6xl mt-32 mb-10 clear-both ">Booking</h2>
             <div className="ml-40 mb-10">
 
-                <select className="  border-2 border-gray-900 h-16 w-72 relative z-0 outline-none " value={props?.location?.state?.name?.fullName} >
+                <select  onChange={e => setMentorID( e.target.value)} className="  border-2 border-gray-900 h-16 w-72 relative z-0 outline-none " value={props?.location?.state?.name?.fullName} >
                     {postAccountList?.map((mentor, index) => {
-                        if (mentor.roleID == 3) {
-                            return <option key={index}>{mentor.fullName}</option>
-                        }
+                       
+                            return <option  value={mentor?.id} key={index}>{mentor.fullName}</option>
+                        
                     })}
                 </select>
             </div>
@@ -92,13 +140,12 @@ export default function Booking(props) {
 
             </div>
             <div className="ml-40 mb-10">
-                <button className="bg-red-500 text-white pl-4 text-left h-8 w-32">Search</button>
+                <button className="bg-red-500 text-white pl-4 text-left h-8 w-32" onClick={SearchBookingList}>Search</button>
             </div>
             <table className="table-auto mx-auto mb-8 ">
                 <thead className=" mx-32 h-20">
                     <tr className="mx-32  text-left ">
                         <th className="   w-32 mx-32"> <button className="font-bold bg-fpt pl-4 w-24 text-left h-12">No. </button></th>
-
                         <th className="   w-72 mx-32"> <button className="font-bold bg-fpt w-64 pl-4 text-left h-12">mentor</button></th>
                         <th className="  w-72 mx-32"><button className="font-bold bg-fpt  w-64  text-left h-12  pl-4">subject</button></th>
                         <th className="   w-72 mx-32"><button className="font-bold bg-fpt w-64 pl-4 text-left h-12">Date</button></th>
@@ -107,66 +154,7 @@ export default function Booking(props) {
                     </tr>
                 </thead>
                 <tbody className=" h-16 ">
-                    <tr className="h-16 ">
-                        <td className="pl-4 text-left">1</td>
-                        <td className="pl-4 text-left">anh khoa</td>
-                        <td className="text-left  pl-4  ">SWT301</td>
-                        <td className="pl-4 text-left  ">      29/09/2021 </td>
-                        <td className="pl-4 text-left"> 12:30 - 14:00 </td>
-                        {/* <td className="pl-4 text-left text-xanh"> <Modal show={this.state.show} handleClose={this.hideModal}>
-                                <div className="clear-both mb-5">
-                                    <h2 className="text-center text-4xl font-bold text-black mb-4"> Registration Form </h2>
-                                    <div className=" m- h-5/6 w-5/6 mx-14 text-black  text-3xl">
-                                        <p className=" font-bold pb-2">Mentor: <a className="font-normal"> Nguyễn Thế Hoàng</a> </p>
-                                        <p className=" font-bold pb-2">Subject: <a className="font-normal">  Software Testing</a></p>
-                                        <p className=" font-bold pb-2">Date: <a className="font-normal">  29/09/2021</a></p>
-                                        <p className=" font-bold pb-2">Slot: <a className="font-normal">  12:30-14:30 </a></p>
-                                        <p className=" font-bold pb-2">Name student:</p>
-
-                                        <textarea className=" rounded-2xl w-5/6 pb-24 border-2  text-lg text-left outline-none  " type="" placeholder="Input mail all student for Group" />
-                                        <p className=" font-bold pb-2"> Question:</p>
-                                        <input className=" rounded-2xl w-5/6 pb-24 border-2  text-lg text-left outline-none  " /> <br />
-                                        <button className="w-40 h-12 bg-red-500 text-white float-right mt-10 mb-10">Register</button>
-                                    </div>
-
-                                </div>
-                            </Modal>
-                                <button type="button" title="checkModal" onClick={this.showModal}>
-                                    request
-                                </button></td> */}
-                    </tr>
-                    <tr className="h-16 ">
-                        <td className="pl-4 text-left">1</td>
-                        <td className="pl-4 text-left">anh khoa</td>
-                        <td className="text-left  pl-4  ">SWT301</td>
-                        <td className="pl-4 text-left  ">      29/09/2021 </td>
-                        <td className="pl-4 text-left"> 12:30 - 14:00 </td>
-                        <td className="pl-4 text-left text-xanh"> request</td>
-                    </tr>
-                    <tr className="h-16 ">
-                        <td className="pl-4 text-left">1</td>
-                        <td className="pl-4 text-left">anh khoa</td>
-                        <td className="text-left  pl-4  ">SWT301</td>
-                        <td className="pl-4 text-left  ">      29/09/2021 </td>
-                        <td className="pl-4 text-left"> 12:30 - 14:00 </td>
-                        <td className="pl-4 text-left text-xanh"> request</td>
-                    </tr>
-                    <tr className="h-16 ">
-                        <td className="pl-4 text-left">1</td>
-                        <td className="pl-4 text-left">anh khoa</td>
-                        <td className="text-left  pl-4  ">SWT301</td>
-                        <td className="pl-4 text-left  ">      29/09/2021 </td>
-                        <td className="pl-4 text-left"> 12:30 - 14:00 </td>
-                        <td className="pl-4 text-left text-xanh"> request</td>
-                    </tr>
-                    <tr className="h-16 ">
-                        <td className="pl-4 text-left">1</td>
-                        <td className="pl-4 text-left">anh khoa</td>
-                        <td className="text-left  pl-4  ">SWT301</td>
-                        <td className="pl-4 text-left  ">      29/09/2021 </td>
-                        <td className="pl-4 text-left"> 12:30 - 14:00 </td>
-                        <td className="pl-4 text-left text-xanh"> request</td>
-                    </tr>
+              <GetBooking view={postList} mentor={postAccountList} />
                 </tbody>
             </table>
 

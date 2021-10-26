@@ -22,7 +22,7 @@ export default class MentorView extends Component {
         } else {
             console.log(" co prop", this.props.location.state.name.id)
         }
-
+console.log(123123, this.props.location.state.name);
         return (
             <div className="mt-20">
                 <Header >

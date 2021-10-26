@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://fb32-123-20-77-189.ngrok.io",
-  "homepage": "http://localhost:3000",
+  "homepage": "https://tiensidien.github.io/Appointment_fe/",
   "dependencies": {
     "@craco/craco": "^6.3.0",
     "@emotion/react": "^11.5.0",
@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.22.0",
     "firebase": "^8.10.0",
+    "gh-pages": "^3.2.3",
     "google-auth-library": "^7.10.0",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
@@ -34,7 +35,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
