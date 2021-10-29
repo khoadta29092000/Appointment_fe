@@ -134,14 +134,11 @@ function GetSubject(props) {
                 )
             })}
             <Modal show={show} handleClose={hideModal} className="mb-5">
-
                 {chooseModal == 1 ? <ModalForSubject isClickedParent={selectedSubject} parentCallback={callbackFunction} spec={selectedSpec} onModal={() => setShow(false)} onUpdate={() => props.onDelete()} />
                     : <ModalForMentor
                     isClickedParent={selectedSubject}
                     mentor={selectedMentor} onModal={() => setShow(false)} onUpdate={() => props.onDelete()}  parentCallback={callbackFunction} />}
-               
             </Modal>
-
         </tbody>
     );
 }

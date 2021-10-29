@@ -4,10 +4,20 @@ import Admin from "../AdminDashboard/AdminDashboard";
 import accountApi from '../../../api/accountApi';
 import GetAccount from './GetAccount';
 import Pagination from '../../Pagination';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 function User() {
-
+    const [message, setMessage] = useState('');
+    const [userProfile, setUserProfile] = useState([]);
     const [postList, setpostList] = useState([]);
+    const [postSpecList, setPostSpecList] = useState([]);
     const [pagination, setPagination] = useState({
         page: 1,
         pageSize: 10,
@@ -18,11 +28,34 @@ function User() {
         pageSize: 10,
         // title_like: '',
     })
-
+    const [open, setOpen] = useState(false);
     useEffect(() => {
-        featchRoleList()
+        featchRoleList();
         featchPostList();
+        featchSpecList();
     }, [filters]);
+
+    async function featchSpecList() {
+        try {
+            const requestURL = `http://118.69.123.51:5000/test/api/specialize/get_list?`;
+            const response = await fetch(requestURL, {
+                method: `GET`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+            });
+            const responseJSON = await response.json();
+
+            const { data, pagination } = responseJSON;
+
+            setPostSpecList(data);
+
+            return data
+        } catch (error) {
+            console.log('Fail to fetch product list: ', error)
+        }
+    }
 
     async function featchPostList() {
         try {
@@ -93,10 +126,27 @@ function User() {
         })
     }
 
+    const callbackFunction = (childData) => {
+        setMessage(childData)
+        setOpen(true)
+    };
+    console.log("prop cha", message)
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setOpen(false);
+    };
     return (
         <Admin>
 
             <div className="mt-101">
+                <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} className="float-left w-screen">
+                    <Alert onClose={handleClose} severity="success" >
+                        {message}
+                    </Alert>
+                </Snackbar>
                 <div className="bg-white h-20 mx-5 grid grid-cols-9 ">
                     <h2 className="text-xl col-span-6 leading-80 pl-8 float-left text-700 h-20">User manage</h2>
                     <div id="form-field" className="  mt-4   mb-0   mr-52  w-450">
@@ -118,7 +168,7 @@ function User() {
                                 <th className="  "></th>
                             </tr>
                         </thead>
-                        <GetAccount posts={postList} postss={postRoleList} onDelete={() => featchPostList()} />
+                        <GetAccount posts={postList} postss={postRoleList} parentCallback={callbackFunction} spec={postSpecList} onDelete={() => featchPostList()} />
 
 
 

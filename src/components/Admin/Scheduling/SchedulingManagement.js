@@ -10,16 +10,16 @@ export default class SchedulingManagement extends Component {
                 <div className="mt-101">
                     <div className="bg-white h-20 mx-5 grid grid-cols-10 ">
                         
-                        <NavLink activeStyle={{ backgroundColor: '#4FD1C5',  fontWeight: "bold" }} exact to="/admindashboard/scheduling" className=" text-lg col-span-1  h-10 m-auto rounded-lg w-28  text-700  " >
+                        <NavLink activeStyle={{ backgroundColor: '#4FD1C5', height: '40px',   fontWeight: "bold" }} exact to="/admindashboard/scheduling" className=" text-lg col-span-1  h-10 m-auto rounded-lg w-28  text-700  " >
                       
                         <h2 className="text-center pt-1 ">Student</h2>
                       
                         </NavLink>
                          
-                        <NavLink activeStyle={{ backgroundColor: '#4FD1C5',  fontWeight: "bold" }} to="/admindashboard/scheduling/mentor" className="text-xl col-span-1   h-10 rounded-lg w-28 m-auto text-700 " >
+                        <NavLink activeStyle={{ backgroundColor: '#4FD1C5', height: '40px', fontWeight: "bold" }} to="/admindashboard/scheduling/mentor" className="text-xl col-span-1   h-10 rounded-lg w-28 m-auto text-700 " >
                         <h2 className="pt-1  text-center">Mentor</h2>
                         </NavLink>
-                        <NavLink activeStyle={{ backgroundColor: '#4FD1C5',  fontWeight: "bold" }} to="/admindashboard/scheduling/subject" className="text-xl col-span-1   h-10 text rounded-lg w-28 m-auto text-700 " >
+                        <NavLink activeStyle={{ backgroundColor: '#4FD1C5', height: '40px',   fontWeight: "bold" }} to="/admindashboard/scheduling/subject" className="text-xl col-span-1   h-10 text rounded-lg w-28 m-auto text-700 " >
                         <h2 className="pt-1 text-center ">Subject</h2>
                         </NavLink>
                         <div className="col-span-2"></div>

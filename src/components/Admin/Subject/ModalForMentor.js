@@ -29,7 +29,6 @@ export default function ModalForMentor(props) {
                     value: item?.id
                 })
             }
-            console.log(123123, tmp)
             setselectedMentor(tmp)
         } else {
             setselectedMentor([])
@@ -72,18 +71,26 @@ export default function ModalForMentor(props) {
 
 
     function onChangeInput(value) {
-        console.log("cc", value);
-        const cl = value?.map(cc => {
-
-            return cc.value
+        console.log("value", value);
+      const list =  props?.isClickedParent?.mentorList?.map(list =>{
+         return  list.id
         })
-        console.log("cl", cl)
-        setMentorID(cl)
+        const nameMentor = value?.filter((mentor, index) => {
+                  if(mentor.value != list[index]){
+                      return mentor.value
+                  }})
+        const nameList =  props?.isClickedParent?.mentorList?.map(list => (list.id))        
+       const updateMentor = nameMentor?.map(update => (update.value))
+        console.log(11, nameMentor)
+        console.log(22, nameList)
+        console.log(33, updateMentor)
+        setMentorID(updateMentor)
         setselectedMentor(value)
+      
     }
-
-
-
+    
+  
+    
 
     return (
 
@@ -95,13 +102,19 @@ export default function ModalForMentor(props) {
                     <p className="text-gray-500 pb-10 pl-2 pr-24">You can edit or add subjects according to the university's majors</p>
                 </div>
             </div>
+            <div className="  mx-14 text-black mb-5  text-3xl">
+                   <div>Subject Name:<a className=" ml-6
+                    font-normal text-xanhnhat    ">{props?.isClickedParent?.name}</a></div>
+               </div>
+   
             <div className="  mx-14 text-black  text-3xl">
-
+                   
                 <div>Mentor:</div>
                 <Select
-                    //    onChange ={e => setMentorID(options.value) }
+                    //onChange ={e => setMentorID(options.value) }
                     options={mentorList}
                     value={selectedMentor}
+                  
                     isMulti={true}
                     onChange={onChangeInput} />
                 <button className="w-40 h-12 bg-gray-800 text-white float-right mt-10 mb-10 space-x-1 rounded-xl"   > <p onClick={updateMentorForSubject}>Update</p></button>

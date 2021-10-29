@@ -9,7 +9,7 @@ const Modal = ({ handleClose, show, children }) => {
       <td id="modal-main">
       <button id="close" type="button" onClick={handleClose}>
           <img  src="https://icon-library.com/images/x-button-icon/x-button-icon-20.jpg"
-          className="h-10 w-10 "
+          className="h-12 w-12 "
           />
         </button>
         {children} <br/>

@@ -9,6 +9,8 @@ export default function SubjectView(props) {
 
     const [postSpecList, setPostSpecList] = useState([]);
 
+    
+
     async function featchSpecList() {
         try {
             const requestURL = `http://118.69.123.51:5000/test/api/specialize/get_list?`;

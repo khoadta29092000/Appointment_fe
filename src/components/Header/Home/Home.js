@@ -20,7 +20,7 @@ export default function Home() {
             <h2 className="   relative   text-7xl pt-28  text-white text-center  font-bold "> MENTOR APPOINTMENT  </h2>
             <p className=" p-8  relative  text-[#ffa400] text-3xl w-[1702px] text-white text-center font-normal uppercase font-sans "> - Mentor appointment scheduling applicaton -  </p>
           </div>
-          <div className="grid grid-cols-2 gap-x-35 h-650 ">
+          <div className="grid grid-cols-2 my-20 gap-x-35 h-650 ">
             <div className="text-center">
               <div className="">
                 <h3 className="mt-20 text-5xl   text-xanhla  font-bold"  > Self peaced course.</h3>

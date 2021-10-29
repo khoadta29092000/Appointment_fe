@@ -1,14 +1,71 @@
 import React, { Component, useState, useEffect, useContext } from "react";
 import { Link, NavLink } from 'react-router-dom'
-import Modal from "../../Modal";
+
 import Logo from '../../image/logo.png'
 
 export default function ModalForUser(props) {
     const [role, setRole] = useState("")
     const [id, setId] = useState("")
+    const [information, setInformation] = useState([]);
+    const [subject, setSubject] = useState([]);
+    const [specspecialize,setSpecialize] = useState([]);
 
-    console.log("props của modal", props)
+    useEffect(() => {
+        if (props?.isClickedParent) {
+            setId(props?.isClickedParent?.id);
+            setRole(props?.isClickedParent?.roleID)
+        }
+    }, [props?.isClickedParent?.id, props?.isClickedParent?.roleID])
 
+    useEffect(() => {
+        if (props?.isClickedParent?.id) {
+            featchPostList(id)
+            if (props?.isClickedParent?.roleID == 2) {
+                featchSubjectForMentor(id)
+            }
+        }
+    }, [id]);
+
+    async function featchSubjectForMentor(id) {
+        try {
+
+            const requestURL = `http://118.69.123.51:5000/test/api/subject/get_list?mentorID=${id}`;
+            const response = await fetch(requestURL, {
+                method: `GET`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+            });
+            const responseJSON = await response.json();
+            const { data } = responseJSON;
+            setSubject(data?.rows);
+            return data
+        } catch (error) {
+            console.log('Fail to fetch product list: ', error)
+        }
+    }
+
+
+    async function featchPostList(id) {
+        try {
+            const requestURL = `http://118.69.123.51:5000/test/api/user/get_user_profile?userID=${id}`;
+            const response = await fetch(requestURL, {
+                method: `GET`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+            });
+            const responseJSON = await response.json();
+            const { data } = responseJSON;
+            setInformation(data);
+            console.log(2909, data)
+            return data
+        } catch (error) {
+            console.log('Fail to fetch product list: ', error)
+        }
+    }
 
 
     async function updateRole() {
@@ -27,15 +84,15 @@ export default function ModalForUser(props) {
         }).then(res => res.json())
             .then(result => {
 
-                if (result) {
+                if (result ) {
+                    if(result?.resultCode == 1){
                     props.onUpdate()
                     props.onModal()
-                    alert("update thành công")
-                    // history.push("/")
+                    props.parentCallback("Update Successfully");}
+
                 } else {
                     alert("update thất bại")
-                    // setError(result.message)
-                    // alert("tài khoản hoặc mật khẩu sai kìa")
+
                 }
                 return res
 
@@ -45,32 +102,27 @@ export default function ModalForUser(props) {
             })
         return body
     }
-    // if(props?.isClickedParent?.fullName == postList.row?.id ){
-    //        return console.log(postList.row?.name)
-    // } 
 
-    useEffect(() => {
-        setId(props?.isClickedParent?.id);
-        setRole(props?.isClickedParent?.roleID)
-    }, [props?.isClickedParent?.id, props?.isClickedParent?.roleID])
-
-    let dataRole;
+// const inforSubject = subject?.map( name => {return name.name})
+const nameSubject = subject?.map(name => (name.name) )
+const inforSpecialize = props?.spec?.filter(specInfor => {if(specInfor?.id == information?.specializeID ){return specInfor.name}} )  
+console.log(123123, inforSpecialize);
+const nameSpecialize = inforSpecialize?.map(name => {return name.name})
+let dataRole;
     if (props?.isClickedParent?.roleID == '2') {
         dataRole = (
             <tr className="border-b-2 h-50 ">
                 <th className="text-left  "> Subject:  </th>
-                <td className="font-normal pl-10 text-gray-900 outline-none"></td>
+                <td className="font-normal pl-10  text-gray-900 outline-none">{nameSubject.join(", ")}</td>
             </tr>)
     }
     else if (props?.isClickedParent?.roleID == '1') {
         dataRole = (
-        <tr className="border-b-2 h-50 ">
-            <th className="text-left  "> Specialize:  </th>
-            <td className="font-normal pl-10 text-gray-900 outline-none"></td>
-        </tr>)
+            <tr className="border-b-2 h-50 ">
+                <th className="text-left  "> Specialize:  </th>
+                <td className="font-normal pl-10 text-gray-900 outline-none">{nameSpecialize}</td>
+            </tr>)
     }
-
-
     return (
         <div className="clear-both mb-0 ">
             <div className="border-b-2 mb-5 border-gray-400">
@@ -86,56 +138,46 @@ export default function ModalForUser(props) {
                     <tbody >
                         <tr className="border-b-2 h-50 ">
                             <th className="text-left  "> Email:  </th>
-                            <td className="font-normal pl-10 text-gray-900 outline-none">{props?.isClickedParent?.email}</td>
+                            <td className="font-normal pl-10 text-gray-900 outline-none">{information?.email}</td>
                         </tr>
                         <tr className="border-b-2 h-50 ">
                             <th className="text-left  "> Name:  </th>
-                            <td className="font-normal pl-10 text-gray-900 outline-none">{props?.isClickedParent?.fullName}</td>
+                            <td className="font-normal pl-10 text-gray-900 outline-none">{information?.fullName}</td>
                         </tr>
+
+                        <tr className="border-b-2 h-50 ">
+                            <th className="text-left  "> Role:  </th>
+                            <td className="">
+                                <select value={role} onChange={e => setRole(e.target.value)} className="font-normal pl-3 text-gray-900 outline-none ">
+                                    {props?.role?.map(postRole => {
+                                        {
+                                            return (
+                                                <option
+                                                    value={postRole?.id}
+                                                    key={postRole?.id} > {postRole?.name}  </option>
+                                            )
+                                        }
+                                    })}
+                                </select></td>
+                        </tr>
+
                         <tr className="border-b-2 h-50 ">
                             <th className="text-left  "> MSSV:  </th>
                             <td className="font-normal pl-10 text-gray-900 outline-none"></td>
                         </tr>
-                        <tr className="border-b-2 h-50 ">
-                            <th className="text-left  "> Role:  </th>
-                            <td className="">
-                                <select onChange={e => setRole(e.target.value)} className="font-normal pl-9 text-gray-900 outline-none ">
-                                    {props?.role?.map(postRole => {
-                                        if (props?.isClickedParent?.roleID == postRole?.id) {
-                                            return (
-                                                <option
-                                                    value={postRole?.id}
-                                                    key={postRole?.id} > {postRole?.name}  </option>
-                                            )
-                                        }
-                                    })
-
-                                    }
-                                    {props?.role?.map(postRole => {
-                                        if (props?.isClickedParent?.roleID != postRole?.id) {
-                                            return (
-                                                <option
-                                                    value={postRole?.id}
-                                                    key={postRole?.id} > {postRole?.name}  </option>
-                                            )
-                                        }
-                                    })
-
-                                    }
-                                </select>  </td>
-                        </tr>
                         {dataRole}
                         <tr className="border-b-2 h-50 ">
                             <th className="text-left  "> Address:  </th>
-                            <td className="font-normal pl-10 text-gray-900 outline-none"></td>
+                            <td className="font-normal pl-10 text-gray-900 outline-none">{information?.address}</td>
                         </tr>
                         <tr className="border-b-2 h-50 ">
                             <th className="text-left  "> Phone:  </th>
-                            <td className="font-normal pl-10 text-gray-900 outline-none"></td>
+                            <td className="font-normal pl-10 text-gray-900 outline-none">{information?.phone}</td>
                         </tr>
 
 
                     </tbody>
+
                 </table>
 
             </div>

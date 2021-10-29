@@ -34,7 +34,7 @@ module.exports = {
         'xanhnhat': "#9AA57D",
       },
       spacing: {
-        
+        '570': '570px',
       '600': '37rem',
       '550': '40rem',
       '650': '38rem',
@@ -59,6 +59,7 @@ module.exports = {
       '621' : '525px',
       '34' : '34px',
       '85' : '92px',
+      '10' : '10px',
      },
      lineHeight: {
       'extra-loose': '2.5',

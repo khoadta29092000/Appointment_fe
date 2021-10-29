@@ -82,13 +82,10 @@ function Mentor() {
         <h2 className="text-center h-20 leading-80 my-auto le text-5xl bg-xanhla text-white  font-serif uppercase  clear-both  "> List Mentor</h2>
 
         <Search onSubmit={handleSearchTermChange} />
-        <div className="mb-8 clear-right mt-10" >
-          <div className="  mx-auto  justify-center mb-8">
+        <div className="mb-8 clear-right mt-28 " >
+          <div className=" mx-auto  justify-center ">
             <ListProduct posts={filterd} />
           </div>
-
-
-
 
         </div>
         <Pagination pagination={pagination} onPageChange={handlePageChange} />

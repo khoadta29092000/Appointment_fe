@@ -80,7 +80,7 @@ function ChangePassword(props) {
         <Profile>
             <div className="col-span-4 h-621 ">
 
-                <h2 className=" mb-4 ml-5 text-5xl">Change Password</h2>
+                <h2 className=" mb-4 ml-5 text-5xl">{props?.location?.state?.name?.isUpdatePassword == true ? "Changes Password" : "Update Password"}</h2>
                 <hr className="mx-5 mb-10"></hr>
 
                 <div className=" text-left ml-44 border-2 bg-white w-1/3 border-red-900 py-10">

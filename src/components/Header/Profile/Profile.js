@@ -30,7 +30,7 @@ function Profile(props) {
                 },
             });
             const responseJSON = await response.json();
-            console.log({ responseJSON });
+    
             const { data, pagination } = responseJSON;
 
             setpostList(data);
@@ -61,7 +61,7 @@ function Profile(props) {
    }
 
 
-    console.log("props của profle", postList);
+   
     return (
 
         <div className="mt-14 " >

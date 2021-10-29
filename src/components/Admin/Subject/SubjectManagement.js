@@ -172,8 +172,8 @@ function SubjectManagement(props) {
     <Admin>
 
       <div className="mt-101">
-        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose} className="float-left w-screen">
-          <Alert onClose={handleClose} severity="success" className="float-left" sx={{ width: "200%", float: "right" }}>
+        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} className="float-left w-screen">
+          <Alert onClose={handleClose} severity="success" >
             {message}
           </Alert>
         </Snackbar>

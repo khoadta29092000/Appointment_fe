@@ -170,10 +170,7 @@ export default function ModalForSubject(props) {
         }
 
     }
-    if (props?.isClickedParent?.specializeID == undefined) {
-        option = (
-            <option className="text-gray-300 text-xl" >chon chuyen nganh kia</option>)
-    }
+  
 
     useEffect(() => {
         setName(props?.isClickedParent?.name);
@@ -220,30 +217,8 @@ export default function ModalForSubject(props) {
 
                                 <select
                                 value={specializeID}
-                                onChange={e => setSpecializeID(e.target.value)} className={value == specializeID ? "font-normal pl-9 text-gray-400 outline-none " : "font-normal pl-9 text-gray-900 outline-none " } >
+                                onChange={e => setSpecializeID(e.target.value)} className={value == specializeID ? "font-normal pl-1 text-gray-400 outline-none " : "font-normal pl-1 text-gray-900 outline-none " } >
                                     <option className="text-gray-300 hidden text-xl" value={0} >Select Specialize...</option>
-                                    {/* {props?.spec?.map(postSpec => {
-
-                                        if (props?.isClickedParent?.specializeID == postSpec?.id) {
-
-                                            return (
-                                                <option
-                                                    value={postSpec?.id}
-                                                    key={postSpec?.id}> {postSpec?.name}  </option>)
-
-                                        }
-
-                                    })} */}
-                                    {/* {props?.spec?.map(postSpec => {
-                                        console.log(postSpec)
-                                        if (props?.isClickedParent?.specializeID != postSpec?.id) {
-
-                                            return (
-                                                <option
-                                                    value={postSpec?.id}
-                                                    key={postSpec?.id} > {postSpec?.name}  </option>)
-                                        }
-                                    })} */}
                                     {
                                         props?.spec?.map(ele => {
                                             return (

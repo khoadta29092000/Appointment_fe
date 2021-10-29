@@ -126,6 +126,25 @@ const accountApi = {
         console.log('Fail to fetch product list: ', error)
     }
 },
+getListStudent: async() => {
+  try {
+      const requestURL = `http://118.69.123.51:5000/test/api/user/get_list?roleID=1`;
+
+      const response = await fetch(requestURL, {
+          method: `GET`,
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+          },
+      });
+      const responseJSON = await response.json();
+      console.log({ responseJSON });
+      const { data, pagination } = responseJSON;
+      return data
+  } catch (error) {
+      console.log('Fail to fetch product list: ', error)
+  }
+},
 
   //   return await axios.post('http://fb32-123-20-77-189.ngrok.io/api/user/login_google', body)
 

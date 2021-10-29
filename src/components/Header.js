@@ -28,7 +28,7 @@ function Header(props) {
         },
       });
       const responseJSON = await response.json();
-      console.log({ responseJSON });
+     
       const { data, pagination } = responseJSON;
 
       setpostList(data);
@@ -39,7 +39,7 @@ function Header(props) {
     }
   }
 
-  console.log(postList)
+
 
   if (localStorage.getItem(`user-token`)) {
     buttons = (
@@ -55,13 +55,13 @@ function Header(props) {
               name: postList
             }
           }} className=" " >
-            <div className="border-2  hover:bg-xanhnhat border-white rounded-5xl  mt-1 p-1   h-12 pr-3">
+            <div className="border-2  hover:bg-fpt border-white rounded-5xl  mt-1 p-1   h-12 pr-3">
               <p className="float-right text-sm mt-2  ml-4 ">{postList.fullName}</p>
               <img src={postList.avatar}
                 className="rounded-full ml-3000 w-8 h-8  mt-3000 mx-8 " />
             </div>
             <ul id="subnav" className=" border-2 float-left bg-white  text-center  p-1   pr-3" >
-              <li className="w-full h-56 hover:bg-xanhnhat " ><NavLink to={{
+              <li className="w-full h-56 hover:bg-fpt " ><NavLink to={{
                 pathname: "/profile/update",
                 onReload : () => featchPostList(),
                 state: {
@@ -69,8 +69,8 @@ function Header(props) {
                 }
               }} className=" " ><p className="leading-56">Profile</p></NavLink></li>
 
-              <li className="w-full  h-56 hover:bg-xanhnhat"><Link to="/scheduling" className="my-link  "><p className="leading-56">Scheduling</p></Link></li>
-              <li className="w-full h-56 hover:bg-xanhnhat "><Link to="/" className=" " onClick={handleLogoutClick}><p className="leading-56">Logout</p></Link></li>
+              <li className="w-full  h-56 hover:bg-fpt"><Link to="/scheduling" className="my-link  "><p className="leading-56">Scheduling</p></Link></li>
+              <li className="w-full h-56 hover:bg-fpt "><Link to="/" className=" " onClick={handleLogoutClick}><p className="leading-56">Logout</p></Link></li>
             </ul>
           </NavLink>
 

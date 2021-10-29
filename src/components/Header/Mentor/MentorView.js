@@ -1,28 +1,47 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Header from '../../Header'
 import Footer from "../../Footer";
 import Pagination from "../../Pagination";
 import { Link } from 'react-router-dom'
 
 
-export default class MentorView extends Component {
-    constructor(props) {
-        super(props);
-        console.log(props.location.state);
-        console.log(this.props.location)
-    }
-    componentDidMount(nextProps) {
+export default function MentorView (props) {
+    
+    console.log("props của mentor view",props);
+  
+    useEffect(() => {
+     
+        featchPostList();
 
-    }
+    }, []);
+    const [postList, setpostList] = useState([]);
+ async function featchPostList() {
+        try {
+              
+            const requestURL = `http://118.69.123.51:5000/test/api/subject/get_list?mentorID=${ props?.location?.state?.name?.id}`;
 
-    render() {
-        if (this.props.location.state === undefined) {
-            console.log("ko co prop")
+            const response = await fetch(requestURL, {
+                method: `GET`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+            });
+            const responseJSON = await response.json();
 
-        } else {
-            console.log(" co prop", this.props.location.state.name.id)
+            const { data, pagination } = responseJSON;
+
+            setpostList(data?.rows);
+
+            return data
+        } catch (error) {
+            console.log('Fail to fetch product list: ', error)
         }
-console.log(123123, this.props.location.state.name);
+    }
+   const subjectForMentor = postList?.map((subject, index) => {
+        return  subject.name
+    })
+console.log(123123, props?.location?.state?.name);
         return (
             <div className="mt-20">
                 <Header >
@@ -33,14 +52,14 @@ console.log(123123, this.props.location.state.name);
                         <div className="grid grid-cols-5 mt-20">
                             <div className="col-span-2 mx-auto">
 
-                                <img src={this.props.location.state.name.avatar}
+                                <img src={props?.location?.state?.name?.avatar}
                                     className="h-72 w-72  relative " />
                             </div>
                             <div className="col-span-3 text-xanhla">
-                                <p className="font-normal text-2xl mb-7">Email:{this.props.location.state.name.email}</p>
-                                <p className="font-normal text-2xl mb-7">Name:{this.props.location.state.name.fullName}</p>
-                                <p className="font-normal text-2xl mb-7">ID:{this.props.location.state.name.code}</p>
-                                <p className="font-normal text-2xl mb-7">Subject: <a className="text-tim">{this.props.location.state.name.subject}</a></p>
+                                <p className="font-normal text-2xl mb-7">Email:{props?.location?.state?.name?.email}</p>
+                                <p className="font-normal text-2xl mb-7">Name:{props?.location?.state?.name?.fullName}</p>
+                                <p className="font-normal text-2xl mb-7">ID:{props?.location?.state?.name?.code}</p>
+                                <p className="font-normal  text-2xl mb-7">Subject:{subjectForMentor.join(", ")}</p>
 
 
                             </div>
@@ -48,8 +67,8 @@ console.log(123123, this.props.location.state.name);
                                 to={{
                                     pathname: "/booking",
                                     state: {
-                                        name: this.props.location.state.name.name
-                                    }
+                                        name: props?.location?.state?.name?.name
+                                        }
                                 }} className="my-link mt-10 col-span-2 ">
                                 <button className=" bg-xanhla rounded-xl  text-white h-10 ml-72  px-6 ">Choose mentor</button>
                             </Link>
@@ -127,4 +146,3 @@ console.log(123123, this.props.location.state.name);
             </div>
         );
     }
-}

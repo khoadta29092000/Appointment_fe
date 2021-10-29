@@ -3,6 +3,7 @@ import { default as React, useEffect, useState } from "react";
 import Footer from "../../Footer";
 import Header from '../../Header';
 import Pagination from "../../Pagination";
+import ScrollToTop from '../../ScrollToTop';
 import ListSubject from "./listSubject";
 import Search from './Search';
 
@@ -72,6 +73,7 @@ function Subject() {
   return (
     <div className="mt-20  ">
       <Header>
+      <ScrollToTop />
       <h2 className="text-center h-20 leading-80 my-auto le text-5xl bg-xanhla text-white font-serif uppercase   clear-both  "> Subject table</h2>
         <Search onSubmit={handleSearchTermChange} />
        
