@@ -6,12 +6,49 @@ import Select from "react-select";
 
 export default function ModalBooking(props) {
     const [studentID, setStudentID] = useState("");
+    const [appointmentID, setAppointmentID] = useState("");
+    const [postSubjectList, setpostSubjectList] = useState([]);
+    const [subjectID, setSubjectID] = useState(0);
     let body = {
-        subjectID: props.subjectID,
+        subjectID: subjectID,
         studentID: studentID
     }
+    console.log(567, props)
+
+    useEffect(() => {
+        if (props?.booking) {
+            setAppointmentID(props?.booking?.id)
+
+            subjectList(props?.booking?.mentorID)
+        }
+
+    }, [props?.booking?.id, props?.booking?.mentorID])
+    useEffect(() => {
+        if (props?.subjectID) {
+            setSubjectID(props?.subjectID)
+        }
+
+    }, [props?.booking?.id, props?.booking?.mentorID])
+    async function subjectList(e) {
+        try {
+            const requestURL = `http://118.69.123.51:5000/test/api/subject/get_list?mentorID=${e}`;
+            const response = await fetch(requestURL, {
+                method: `GET`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+            });
+            const responseJSON = await response.json();
+            setpostSubjectList(responseJSON?.data?.rows);
+
+        } catch (error) {
+            console.log('Fail to fetch product list: ', error)
+        }
+    }
+
     async function booking() {
-        const res = await fetch(`http://118.69.123.51:5000/test/api/appointment/booking?appointmentID=${props?.booking.map(id => (id.id))}`, {
+        const res = await fetch(`http://118.69.123.51:5000/test/api/appointment/booking?appointmentID=${appointmentID}`, {
             method: `PUT`,
             headers: {
                 'Content-Type': 'application/json',
@@ -22,8 +59,8 @@ export default function ModalBooking(props) {
         }).then(res => res.json())
             .then(result => {
 
-                if (result?.resultCode === 1) {
-
+                if (result?.resultCode === 1) {                   
+                    props?.onModal();
                     alert("dat lich thanh cong")
                 } else {
                     alert("update thất bại")
@@ -45,6 +82,8 @@ export default function ModalBooking(props) {
         setStudentID(valueStudent)
     }
 
+
+
     return (
         <div className="clear-both mb-0 ">
             <div className="border-b-2 mb-5 border-gray-400">
@@ -54,7 +93,7 @@ export default function ModalBooking(props) {
                     <p className="text-gray-500 pb-8 pl-2 pr-24">Student can booking and question for Mentor</p>
                 </div>
             </div>
-            <div className=" mx-16 text-black  text-2xl w-650">
+            <div className=" mx-16 text-black  text-2xl w-902">
 
                 <table className="text-gray-500 w-full">
                     <tbody>
@@ -68,7 +107,17 @@ export default function ModalBooking(props) {
                         </tr>
                         <tr className="border-b-2 h-50 ">
                             <th className="text-left  "> Subject: </th>
-                            <td className="font-normal pl-10 text-gray-900 outline-none"> {props?.nameSubject}</td>
+                            <td className="font-normal pl-10 text-gray-900 outline-none">
+                                <select
+                                    onChange={e => setSubjectID(e.target.value)}
+                                    value={subjectID}
+                                    className= {subjectID != 0 ? "w-full outline-none text-black" : "w-full outline-none text-gray-400 focus:text-black"}>
+                                    <option value={0} className=" hidden">Select Subject</option>
+                                    {postSubjectList?.map((subjectName, index) => {
+                                        return (<option value={subjectName.id} key={index}>{subjectName.name}</option>)
+                                    })}
+                                </select>
+                            </td>
                         </tr>
                         <tr className="border-b-2 h-50 ">
                             <th className="text-left  "> Date:   </th>

@@ -31,10 +31,9 @@ function User() {
     const [open, setOpen] = useState(false);
     useEffect(() => {
         featchRoleList();
-        featchPostList();
         featchSpecList();
+        featchPostList();
     }, [filters]);
-
     async function featchSpecList() {
         try {
             const requestURL = `http://118.69.123.51:5000/test/api/specialize/get_list?`;
@@ -56,6 +55,7 @@ function User() {
             console.log('Fail to fetch product list: ', error)
         }
     }
+
 
     async function featchPostList() {
         try {
@@ -168,7 +168,7 @@ function User() {
                                 <th className="  "></th>
                             </tr>
                         </thead>
-                        <GetAccount posts={postList} postss={postRoleList} parentCallback={callbackFunction} spec={postSpecList} onDelete={() => featchPostList()} />
+                        <GetAccount posts={postList} postss={postRoleList} pagination={pagination}  parentCallback={callbackFunction} spec={postSpecList} onDelete={() => featchPostList()} />
 
 
 

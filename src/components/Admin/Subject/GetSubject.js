@@ -114,7 +114,7 @@ function GetSubject(props) {
                                 return <option key={postSpec?.id}>{postSpec?.name}</option>
                             }
                         })}</td>
-                        <td className="">{post.mentor}</td>
+                        <td className=" text-xanhla ">{post.mentorList.map(name => (name.fullName)).join(", ").slice(0,20). concat("...")}</td>
                         <td className=" font-bold cursor-pointer">
 
                             <button type="button" className="font-bold " onClick={() => showModalForMentor(post, mentor)}  >

@@ -98,7 +98,7 @@ export default function ModalForMentor(props) {
             <div className="border-b-2 mb-5 border-gray-400">
                 <Link to="/"><img src={Logo} alt="logo" className="float-left w-64 h-24 pr-2" /></Link>
                 <div className="">
-                    <h2 className=" text-3xl font-bold  text-black pt-2"> Subject Detail </h2>
+                    <h2 className=" text-3xl font-bold  text-black pt-2"> Mentor For Subject </h2>
                     <p className="text-gray-500 pb-10 pl-2 pr-24">You can edit or add subjects according to the university's majors</p>
                 </div>
             </div>

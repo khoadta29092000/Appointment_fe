@@ -47,8 +47,8 @@ function Pagination(props) {
                     {
                         pageNumbers.map(number => {
 
-                            return <li className={page == number ? "bg-xanhla -ml-2 text-white rounded-full h-8 -mt-1 p-1 w-8 " : " -ml-2 text-black rounded-full h-8 -mt-1 p-1 w-8"} key={number}>
-                                {number}
+                            return <li  className={page == number ? "bg-xanhla -ml-2 text-white rounded-full  h-8 -mt-1 p-1 w-8 " : " -ml-2 text-black rounded-full h-8 -mt-1 p-1 w-8"} key={number}>
+                              <a className="cursor-pointer" onClick={() => handlePageChange(number)}>  {number}</a>
                             </li>
                         })
                     }

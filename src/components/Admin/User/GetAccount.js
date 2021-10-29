@@ -58,7 +58,7 @@ function GetAccount(props) {
 
                     <tr className="h-16 border-b-2 border-gray-200 " key={post.id}>
 
-                        <td className="pl-8">  {index + 1}</td>
+                        <td className="pl-8">    {(index + 1) + (props.pagination.pageSize * (props.pagination.page - 1))}</td>
                         <td>{post?.fullName}</td>
                         <td className="">{post?.email}</td>
                         <td className=""></td>

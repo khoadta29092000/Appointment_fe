@@ -45,7 +45,7 @@ function GetBooking(props) {
                                 return mentorname.fullName
                             }
                         })}</td>
-                        <td className="text-left  pl-4  ">{subjectName?.map(name => (name.name))}  </td>
+                        {/* <td className="text-left  pl-4  ">{subjectName?.map(name => (name.name))}  </td> */}
                         <td className="pl-4 text-left  ">{bookinglist?.startTime?.slice(0, 10)} to {bookinglist?.endTime?.slice(0, 10)}   </td>
                         <td className="pl-4 text-left">{bookinglist?.startTime?.slice(11, 16)} to {bookinglist?.endTime?.slice(11, 16)}   </td>
                         <td className="pl-4 text-left text-xanhla font-bold cursor-pointer">
@@ -59,7 +59,7 @@ function GetBooking(props) {
             })}
             <Modal show={show} handleClose={hideModal} className="mb-5">
                 <ModalBooking booking={bookingInformation} student={student} nameSubject={subjectName?.map(name => { return name.name })}
-                    subjectID={subjectName?.map(id => { return id.id })} mentor={mentor} onModal={() => setShow(false)} />
+                    subjectID={subjectName?.map(id => { return id.id })} subject={props?.subject} mentor={mentor} onModal={() => setShow(false)} />
             </Modal>
         </Fragment >
 

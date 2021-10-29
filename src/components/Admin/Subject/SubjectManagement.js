@@ -188,7 +188,7 @@ function SubjectManagement(props) {
               <ModalForSubject spec={postSpecList} parentCallback={callbackFunction} onDelteModal={() => setpostList(undefined)} onModal={() => setShow(false)} onDelete={() => featchPostList()} />
             </Modal>
             <div>
-              <button type="button" onClick={showModal} className="h-50 w-28 bg-purple-700 rounded-lg mt-4 text-white">Add new</button>
+              <button type="button" onClick={showModal} className="h-50 w-28 bg-xanhlot rounded-lg mt-4 text-white">Add new</button>
 
             </div>
           </div>

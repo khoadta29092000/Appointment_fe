@@ -60,6 +60,7 @@ module.exports = {
       '34' : '34px',
       '85' : '92px',
       '10' : '10px',
+      '40px': '40px',
      },
      lineHeight: {
       'extra-loose': '2.5',
@@ -78,7 +79,7 @@ module.exports = {
       'bluementor' : '#36C5F0',
       'xanhla': "#6F7B4D",
       'xanhnhat': "#9AA57D",
-      
+      'xanhlot': "#4FD1C5",
      }),
      zIndex: {
       '-1': '-1',

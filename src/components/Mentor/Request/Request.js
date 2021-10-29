@@ -1,246 +1,57 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../../Modal";
 import Pagination from "../../Pagination";
 import MentorDashboard from "../MentorDashboard/MentorDashboard";
 import GetRequest from "./GetRequest";
 
+export default function Request(props) {
+    const [postSubjectList, setpostSubjectList] = useState([]);
+    const[requestList, setRequestList] = useState([])
+    const[mentorID, setMentorID] = useState("")
+    useEffect(() => {
+        featchRequestList();
+        subjectList(props?.location?.state?.name?.id);
+    }, []);
+    async function subjectList(e) {
+        try {
+            const requestURL = `http://118.69.123.51:5000/test/api/subject/get_list?mentorID=${e}`;
+            const response = await fetch(requestURL, {
+                method: `GET`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+            });
+            const responseJSON = await response.json();
+            setpostSubjectList(responseJSON?.data?.rows);
 
-
-
-
-
-
-
-
-export default class Request extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            show: false,
-            isClicked: true,
+        } catch (error) {
+            console.log('Fail to fetch product list: ', error)
         }
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
     }
-    showModal = () => {
-        this.setState({
-            show: true,
-            isClicked: true,
-        });
-    };
+    async function featchRequestList() {
+        try {
+            const requestURL = `  http://118.69.123.51:5000/test/api/appointment/get_mentor_appointment?statusID=2`;
+            const response = await fetch(requestURL, {
+                method: `GET`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+            });
+            const responseJSON = await response.json();
 
-    hideModal = () => {
-        this.setState({ show: false });
-    };
+            const { data, pagination } = responseJSON;
 
-    handleClick = () => {
-        this.setState({
-            isClicked: true,
-        })
+            setRequestList(data);
+
+            return data
+        } catch (error) {
+            console.log('Fail to fetch product list: ', error)
+        }
     }
-
-    render() {
-        var appointments = [
-            {
-                key: 1,
-                id: '001',
-                nameStudent: 'Đỗ Trần Anh Khoa',
-                idStudent: 'SE140163',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Testing',
-                idSubject: 'SWT301',
-                date: '20/09/2021',
-                time:'7:00 - 8:30 PM',
-                nameMentor: "Nguyễn Thế Hoàng" ,
-                idMentor: 'HoangNT',
-                question: 'chúng em có vấn đề về function',
-                feedback: 'thầy rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140xxx, SE140xxx, SE150xxx",
-            },
-            {
-                key: 2,
-                id: '002',
-                nameStudent: 'Đặng Hoàng Việt',
-                idStudent: 'SE140100',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Engineering',
-                idSubject: 'SWE201',
-                date: '22/09/2021',
-                time:'8:30 - 10:00 PM',
-                nameMentor: "Trần Duy Đan" ,
-                idMentor: 'DanDT',
-                question: 'chúng em có vấn đề về nonFunction',
-                feedback: 'thầy rất rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140xxx, SE140xxx, SE150xxx",
-        
-            },
-            {
-                key: 2,
-                id: '002',
-                nameStudent: 'Đặng Hoàng Việt',
-                idStudent: 'SE140100',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Engineering',
-                idSubject: 'SWE201',
-                date: '22/09/2021',
-                time:'8:30 - 10:00 PM',
-                nameMentor: "Trần Duy Đan" ,
-                idMentor: 'DanDT',
-                question: 'chúng em có vấn đề về nonFunction',
-                feedback: 'thầy rất rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140xxx, SE140xxx, SE150xxx",
-        
-            },
-            {
-                key: 2,
-                id: '002',
-                nameStudent: 'Đặng Hoàng Việt',
-                idStudent: 'SE140100',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Engineering',
-                idSubject: 'SWE201',
-                date: '22/09/2021',
-                time:'8:30 - 10:00 PM',
-                nameMentor: "Trần Duy Đan" ,
-                idMentor: 'DanDT',
-                question: 'chúng em có vấn đề về nonFunction',
-                feedback: 'thầy rất rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140xxx, SE140xxx, SE150xxx",
-        
-            },
-            {
-                key: 2,
-                id: '002',
-                nameStudent: 'Đặng Hoàng Việt',
-                idStudent: 'SE140100',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Engineering',
-                idSubject: 'SWE201',
-                date: '22/09/2021',
-                time:'8:30 - 10:00 PM',
-                nameMentor: "Trần Duy Đan" ,
-                idMentor: 'DanDT',
-                question: 'chúng em có vấn đề về nonFunction',
-                feedback: 'thầy rất rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140xxx, SE140xxx, SE150xxx",
-        
-            },
-            {
-                key: 2,
-                id: '002',
-                nameStudent: 'Đặng Hoàng Việt',
-                idStudent: 'SE140100',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Engineering',
-                idSubject: 'SWE201',
-                date: '22/09/2021',
-                time:'8:30 - 10:00 PM',
-                nameMentor: "Trần Duy Đan" ,
-                idMentor: 'DanDT',
-                question: 'chúng em có vấn đề về nonFunction',
-                feedback: 'thầy rất rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140xxx, SE140xxx, SE150xxx",
-        
-            },
-            {
-                key: 2,
-                id: '002',
-                nameStudent: 'Đặng Hoàng Việt',
-                idStudent: 'SE140100',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Engineering',
-                idSubject: 'SWE201',
-                date: '22/09/2021',
-                time:'8:30 - 10:00 PM',
-                nameMentor: "Trần Duy Đan" ,
-                idMentor: 'DanDT',
-                question: 'chúng em có vấn đề về nonFunction',
-                feedback: 'thầy rất rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140xxx, SE140xxx, SE150xxx",
-        
-            },
-            {
-                key: 2,
-                id: '002',
-                nameStudent: 'Đặng Hoàng Việt',
-                idStudent: 'SE140100',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Engineering',
-                idSubject: 'SWE201',
-                date: '22/09/2021',
-                time:'8:30 - 10:00 PM',
-                nameMentor: "Trần Duy Đan" ,
-                idMentor: 'DanDT',
-                question: 'chúng em có vấn đề về nonFunction',
-                feedback: 'thầy rất rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140163, SE140xxx, SE150xxx",
-        
-            },
-            {
-                key: 2,
-                id: '002',
-                nameStudent: 'Đặng Hoàng Việt',
-                idStudent: 'SE140100',
-                specializedStudent: "Software engineer" ,
-                nameSubject: 'SoftWare Engineering',
-                idSubject: 'SWE201',
-                date: '22/09/2021',
-                time:'8:30 - 10:00 PM',
-                nameMentor: "Trần Duy Đan" ,
-                idMentor: 'DanDT',
-                question: 'chúng em có vấn đề về nonFunction',
-                feedback: 'thầy rất rất tuyệt',
-                status:'Done',
-                Linkmeet:"ppr-zgmu-suo" ,
-                group: "SE140xxx, SE140xxx, SE150xxx",
-        
-            },
-            
-           
-        ];
-        let elements = appointments.map((appointment, index) => {
-
-            return <GetRequest
-                key={appointment.key}
-                no={appointment.key}
-                id={appointment.id}
-                nameStudent={appointment.nameStudent}
-                idStudent={appointment.idStudent}
-                specializedStudent={appointment.specializedStudent}
-                nameSubject={appointment.nameSubject}
-                date={appointment.date}
-                time={appointment.time}
-                nameMentor={appointment.nameMentor}
-                idMentor={appointment.idMentor}
-                question={appointment.question}
-                feedback={appointment.feedback}
-                status={appointment.status}
-                Linkmeet={appointment.Linkmeet}
-                idSubject={appointment.idSubject}
-                group={appointment.group}
-               
-            ></GetRequest>
-
-        });
         return (
             <MentorDashboard>
-               {/* <p className="border-l-8 rounded-md border-cam h-60 w-2 float-left mt-140"></p> */}
                 <div className="   relative rounded-2xl mr-7   h-full">
                     <div className="bg-white h-20 rounded-t-2xl grid grid-cols-9   ">
                         <h2 className="text-xl col-span-6 leading-80 pl-8 float-left text-700 h-20">My Task</h2>
@@ -264,12 +75,11 @@ export default class Request extends Component {
                                     <th className="  "></th>
                                 </tr>
                             </thead>
-                            {elements}
-
+                          <GetRequest requestList={requestList} subject={postSubjectList} />
                         </table>
                         <div className="h-76  border-gray-200  ">
 
-                            {/* <Pagination /> */}
+                         
 
                         </div>
 
@@ -278,5 +88,5 @@ export default class Request extends Component {
                 </div>
             </MentorDashboard>
         )
-    }
+    
 }

@@ -230,7 +230,7 @@ export default function Booking(props) {
                         <tr className="mx-32  text-left ">
                             <th className="   w-32 mx-32"> <button className="font-bold bg-fpt pl-4 w-24 text-left h-12">No. </button></th>
                             <th className="   w-72 mx-32"> <button className="font-bold bg-fpt w-64 pl-4 text-left h-12">mentor</button></th>
-                            <th className="  w-72 mx-32"><button className="font-bold bg-fpt  w-64  text-left h-12  pl-4">subject</button></th>
+                            {/* <th className="  w-72 mx-32"><button className="font-bold bg-fpt  w-64  text-left h-12  pl-4">subject</button></th> */}
                             <th className="   w-72 mx-32"><button className="font-bold bg-fpt w-64 pl-4 text-left h-12">Date</button></th>
                             <th className="   w-72 mx-32"><button className="font-bold bg-fpt w-64 pl-4 text-left h-12">Slot</button></th>
                             <th className="  w-52 mx-32"><button className="font-bold bg-fpt w-40  pl-4 text-left h-12">Edit</button></th>

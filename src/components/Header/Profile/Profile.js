@@ -15,11 +15,11 @@ function Profile(props) {
     const [postList, setpostList] = useState([]);
    
     useEffect(() => {
-        featchPostList()
+        featchUserProfile()
 
     }, []);
 
-    async function featchPostList() {
+    async function featchUserProfile() {
         try {
             const requestURL = `http://118.69.123.51:5000/test/api/user/get_user_profile`;
             const response = await fetch(requestURL, {
@@ -82,7 +82,7 @@ function Profile(props) {
 
                                 <li className="mb-2"><NavLink exact to={{
                                     pathname: "/profile/update",
-                                    onDelete : () => featchPostList(),
+                                    onDelete : () => featchUserProfile(),
                                     state: {
                                         name: postList,
                                        
@@ -92,7 +92,7 @@ function Profile(props) {
                                 <ul className="ml-8 text-xl block " >
                                     <li className="mb-2"><NavLink activeStyle={{ color: '#3481C8' }} exact to={{
                                         pathname: "/profile/update",
-                                        onDelete: () => featchPostList(),
+                                        onDelete: () => featchUserProfile(),
                                         state: {
                                             name: postList,
                                            
