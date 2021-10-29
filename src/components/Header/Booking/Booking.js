@@ -196,14 +196,13 @@ export default function Booking(props) {
                         </select>
                     </div>
                     <div className=" mb-10">
-
                         <p className=" -ml-570 font-semibold text-xanhla mb-2 tracking-widest ">Subject:</p>
                         <select
                             onClick={e => chooseSubject(e.target.value)}
                             onChange={e => setSubjectID(e.target.value)}
                             className="tracking-widest font-semibold text-xl w-2/6 rounded-3xl pl-4 text-black   focus:text-gray-900 border-2 border-xanhnhat bg-fpt h-16  relative z-0 outline-none "
                             value={subjectID}>
-                            <option className="text-black hidden text-xl" value={0} >- Choose your subjet -</option>
+                            <option className="text-black hidden text-xl" value={0} >- Choose your subject -</option>
                             {postSubjectList?.map((subject, index) => {
                                 return <option value={subject?.id} key={index}>{subject.name}</option>
                             })}
@@ -214,7 +213,7 @@ export default function Booking(props) {
                         <p className=" -ml-570 font-semibold text-xanhla mb-2 tracking-widest ">Day:</p>
                         <button className="tracking-widest font-semibold  text-xl w-2/6 rounded-3xl h-9 pl-4 text-black focus:text-gray-900  border-xanhnhat bg-fpt   relative z-0 outline-none">
 
-                            <DateRangePickerComponent placeholder="- enter Day -" startDate={startValue}
+                            <DateRangePickerComponent placeholder="- Enter Day -" startDate={startValue}
 
                                 endDate={endValue}
                             ></DateRangePickerComponent>
@@ -229,7 +228,7 @@ export default function Booking(props) {
                     <thead className=" mx-32 h-20">
                         <tr className="mx-32  text-left ">
                             <th className="   w-32 mx-32"> <button className="font-bold bg-fpt pl-4 w-24 text-left h-12">No. </button></th>
-                            <th className="   w-72 mx-32"> <button className="font-bold bg-fpt w-64 pl-4 text-left h-12">mentor</button></th>
+                            <th className="   w-72 mx-32"> <button className="font-bold bg-fpt w-64 pl-4 text-left h-12">Mentor</button></th>
                             {/* <th className="  w-72 mx-32"><button className="font-bold bg-fpt  w-64  text-left h-12  pl-4">subject</button></th> */}
                             <th className="   w-72 mx-32"><button className="font-bold bg-fpt w-64 pl-4 text-left h-12">Date</button></th>
                             <th className="   w-72 mx-32"><button className="font-bold bg-fpt w-64 pl-4 text-left h-12">Slot</button></th>

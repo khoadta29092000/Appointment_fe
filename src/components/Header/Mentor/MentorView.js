@@ -46,7 +46,7 @@ console.log(123123, props?.location?.state?.name);
             <div className="mt-20">
                 <Header >
                     <div className="">
-                        <h2 className="text-center h-20 leading-80 my-auto le text-5xl bg-xanhla text-white font-serif uppercase    clear-both  "> Mentor Profile</h2>
+                        <h2 className="text-center h-20 leading-80 my-auto le text-5xl bg-xanhla text-white font-serif uppercase    clear-both "> Mentor Profile</h2>
                         <img className="w-full h-550"
                             src="https://images.unsplash.com/photo-1634853982486-c06f0e17940f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80 " />
                         <div className="grid grid-cols-5 mt-20">
@@ -56,10 +56,10 @@ console.log(123123, props?.location?.state?.name);
                                     className="h-72 w-72  relative " />
                             </div>
                             <div className="col-span-3 text-xanhla">
-                                <p className="font-normal text-2xl mb-7">Email:{props?.location?.state?.name?.email}</p>
-                                <p className="font-normal text-2xl mb-7">Name:{props?.location?.state?.name?.fullName}</p>
-                                <p className="font-normal text-2xl mb-7">ID:{props?.location?.state?.name?.code}</p>
-                                <p className="font-normal  text-2xl mb-7">Subject:{subjectForMentor.join(", ")}</p>
+                                <p className="font-bold text-2xl mb-7">Email:<a className="font-normal"> {props?.location?.state?.name?.email}</a> </p>
+                                <p className="font-bold text-2xl mb-7">Name:<a className="font-normal"> {props?.location?.state?.name?.fullName}</a> </p>
+                                <p className="font-bold text-2xl mb-7">Id:<a className="font-normal"> {props?.location?.state?.name?.code}</a> </p>
+                                <p className="font-bold  text-2xl mb-7">Subject:<a className="font-normal"> {subjectForMentor.join(" | ")}</a> </p>
 
 
                             </div>
@@ -70,7 +70,7 @@ console.log(123123, props?.location?.state?.name);
                                         name: props?.location?.state?.name?.name
                                         }
                                 }} className="my-link mt-10 col-span-2 ">
-                                <button className=" bg-xanhla rounded-xl  text-white h-10 ml-72  px-6 ">Choose mentor</button>
+                                <button className=" bg-xanhla rounded-xl  text-white h-11 ml-72  px-6 ">Choose mentor</button>
                             </Link>
 
                         </div>

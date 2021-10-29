@@ -153,9 +153,9 @@ function UpdateProfile(props) {
                 <h3 className="text-5xl mb-4 b">Personal profile</h3>
                 <hr className="mb-4 w-4/6"></hr>
                 <div className="ml-4">
-                    {allErrorr && <div> khong de trong</div>}
-                    {phoneErrorr && <div>sdt sai ccmnr</div>}
-                    {nameErrorr && <div> ten it nhat 5 ki ty</div>}
+                    {allErrorr && <div className='text-red-600 ml-11 mb-5 text-xl'> Please enter your all information!</div>}
+                    {phoneErrorr && <div className='text-red-600 ml-11 mb-5 text-xl' >Invalid phone number!</div>}
+                    {nameErrorr && <div className='text-red-600 ml-11 mb-5 text-xl'>Name at least 5 characters!</div>}
                     <table  >
                         <tr >
                             <td className="text-right w-0"> <p className="mb-4 text-xl">Email: </p></td>
