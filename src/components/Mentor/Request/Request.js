@@ -67,7 +67,7 @@ export default function Request(props) {
                             <thead className=" h-10  pointer-events-none bg-gray-200  ">
                                 <tr className=" ">
                                     <th className=" pl-8 w-32 "> No. </th>
-                                    <th className=" w-80 "> Name  </th>
+                                    <th className=" w-80     "> Name  </th>
                                     <th className="w-80  "> Subject</th>
                                     <th className="w-80   ">Time</th> 
                                     <th className="w-64  ">DD/MM/YY</th>
@@ -75,7 +75,7 @@ export default function Request(props) {
                                     <th className="  "></th>
                                 </tr>
                             </thead>
-                          <GetRequest requestList={requestList} subject={postSubjectList} />
+                          <GetRequest requestList={requestList} subject={postSubjectList} onDelete={() => featchRequestList()} />
                         </table>
                         <div className="h-76  border-gray-200  ">
 

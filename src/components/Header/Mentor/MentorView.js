@@ -60,8 +60,6 @@ console.log(123123, props?.location?.state?.name);
                                 <p className="font-normal text-2xl mb-7">Name:{props?.location?.state?.name?.fullName}</p>
                                 <p className="font-normal text-2xl mb-7">ID:{props?.location?.state?.name?.code}</p>
                                 <p className="font-normal  text-2xl mb-7">Subject:{subjectForMentor.join(", ")}</p>
-
-
                             </div>
                             <Link
                                 to={{

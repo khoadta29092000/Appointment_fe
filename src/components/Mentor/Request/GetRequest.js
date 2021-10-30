@@ -1,6 +1,5 @@
 
-import React, { useState, useEffect } from "react";
-import { Link, NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
 import Modal from "../../Modal";
 import ModalRequest from "./ModalRequest";
 
@@ -9,8 +8,11 @@ import ModalRequest from "./ModalRequest";
 export default function GetRequest(props) {
     const [show, setShow] = useState(false);
     console.log(2909, props)
-    function showModal() {
-
+    const [selectedSubject, setselectedSubject] = useState(undefined)
+    const [selectedAppointment, setselectedAppointment] = useState(undefined)
+    function showModal(dataAppointment, dataSubject) {
+        setselectedSubject(dataSubject)
+        setselectedAppointment(dataAppointment)
         setShow(true);
 
     };
@@ -19,12 +21,13 @@ export default function GetRequest(props) {
     };
     useEffect(() => {
         if (!show) {
-
+            setselectedSubject(undefined)
+            setselectedAppointment(undefined)
         }
     }, [show])
    
-    
-   
+let a
+
     return (
         <tbody className="text-left h-16 ">
             {props?.requestList?.rows?.map((request, index) => {
@@ -35,7 +38,7 @@ export default function GetRequest(props) {
                         <td className="">
                         {props?.subject?.map(subjectName => {
                            if(subjectName?.id == request?.subjectID){
-                            return (subjectName.name)
+                            return ( a = subjectName.name)
                            }
                           
                         })}
@@ -44,7 +47,7 @@ export default function GetRequest(props) {
                         <td className="">{request?.startTime?.slice(11, 16)} to {request?.endTime?.slice(11, 16)}</td>
                         <td className="">{request?.startTime?.slice(8, 10)}/{request?.startTime?.slice(5, 7)}/{request?.startTime?.slice(0,4)}</td>
                         <td className="  ">
-                            <button type="button" className="font-bold" onClick={() => showModal()}>
+                            <button type="button" className="font-bold" onClick={() => showModal(request,  a)}>
                                 Edit
                             </button>
                         </td>
@@ -54,7 +57,7 @@ export default function GetRequest(props) {
             })}
 
             <Modal show={show} handleClose={hideModal} className="mb-5">
-                <ModalRequest  />
+                <ModalRequest subject={selectedSubject} appointment={selectedAppointment} onModal={() => setShow(false)} onUpdate={() => props.onDelete()}  />
             </Modal>
         </tbody>
 

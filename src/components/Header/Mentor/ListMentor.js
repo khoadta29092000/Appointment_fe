@@ -19,7 +19,7 @@ function ListProduct(props) {
 
         <div className=" mx-auto h-full w-full grid grid-cols-3 mb-16 gap-x-16 gap-y-28">
             {posts.map((post, index) => {
-                return (<div key={index} className=" mx-auto">
+                return (<div key={index} className="ml-40">
                     <div className="bg-fpt h-450  w-320  -mt-5 -ml-8 " >
                         <img src={post.avatar}
                             className=" w-72 h-80 mx-auto pt-4 block  relative  bg-center bg-cover" />

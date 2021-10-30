@@ -33,7 +33,6 @@ function Pagination(props) {
     return (
 
         <div className="flex  space-x-24   clear-left  h-full items-center  justify-center">
-           
             <button className="flex items-center px-4 py-2 text-xanhla"
                 disabled={page <= 1}
                 onClick={() => handlePageChange(page - 1)}
@@ -46,7 +45,6 @@ function Pagination(props) {
                 <ul className="flex gap-x-12">
                     {
                         pageNumbers.map(number => {
-
                             return <li  className={page == number ? "bg-xanhla -ml-2 text-white rounded-full  h-8 -mt-1 p-1 w-8 " : " -ml-2 text-black rounded-full h-8 -mt-1 p-1 w-8"} key={number}>
                               <a className="cursor-pointer" onClick={() => handlePageChange(number)}>  {number}</a>
                             </li>

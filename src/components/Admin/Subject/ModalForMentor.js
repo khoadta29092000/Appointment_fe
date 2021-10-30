@@ -81,9 +81,6 @@ export default function ModalForMentor(props) {
                   }})
         const nameList =  props?.isClickedParent?.mentorList?.map(list => (list.id))        
        const updateMentor = nameMentor?.map(update => (update.value))
-        console.log(11, nameMentor)
-        console.log(22, nameList)
-        console.log(33, updateMentor)
         setMentorID(updateMentor)
         setselectedMentor(value)
       
@@ -114,7 +111,6 @@ export default function ModalForMentor(props) {
                     //onChange ={e => setMentorID(options.value) }
                     options={mentorList}
                     value={selectedMentor}
-                  
                     isMulti={true}
                     onChange={onChangeInput} />
                 <button className="w-40 h-12 bg-gray-800 text-white float-right mt-10 mb-10 space-x-1 rounded-xl"   > <p onClick={updateMentorForSubject}>Update</p></button>

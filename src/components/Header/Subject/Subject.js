@@ -25,32 +25,32 @@ function Subject() {
   })
 
   useEffect(() => {
-    async function featchPostList() {
-      try {
-        console.log(filters)
-        const paramsString = queryString.stringify(filters);
-        const requestURL = `http://118.69.123.51:5000/test/api/subject/get_list?${paramsString}`;
-
-        const response = await fetch(requestURL);
-        const responseJSON = await response.json();
-        console.log({ responseJSON });
-        const { data, pagination } = responseJSON;
-        setpostList(responseJSON?.data?.rows);
-        setPagination({
-          page: filters.page,
-          pageSize: 12,
-          count: data?.count,
-        });
-        console.log("pagination-----------------", { pagination });
-      } catch (error) {
-        console.log('Fail to fetch product list: ', error)
-      }
-    }
+  
 
     featchPostList();
   }, [filters]);
 
+  async function featchPostList() {
+    try {
+      console.log(filters)
+      const paramsString = queryString.stringify(filters);
+      const requestURL = `http://118.69.123.51:5000/test/api/subject/get_list?${paramsString}`;
 
+      const response = await fetch(requestURL);
+      const responseJSON = await response.json();
+      console.log({ responseJSON });
+      const { data, pagination } = responseJSON;
+      setpostList(responseJSON?.data?.rows);
+      setPagination({
+        page: filters.page,
+        pageSize: 12,
+        count: data?.count,
+      });
+      console.log("pagination-----------------", { pagination });
+    } catch (error) {
+      console.log('Fail to fetch product list: ', error)
+    }
+  }
   function handlePageChange(newPage) {
     console.log('new page: ', newPage);
     setFilters({

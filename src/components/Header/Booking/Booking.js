@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import GetBooking from "./GetBooking";
 import "../../css/celendarPick.css"
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars"
+import Pagination from "../../Pagination";
 
 
 export default function Booking(props) {
@@ -22,6 +23,16 @@ export default function Booking(props) {
     const [subjectID, setSubjectID] = useState("")
     const [mentorName, setMentorName] = useState(0)
     const [subjectName, setSubjectName] = useState(0)
+    const [pagination, setPagination] = useState({
+        page: 1,
+        pageSize: 10,
+        count: 1,
+    });
+    const [filters, setFilters] = useState({
+        page: 1,
+        pageSize: 10,
+        // title_like: '',
+    })
     const [postList, setpostList] = useState([])
     useEffect(() => {
         featchSubjectList()
@@ -49,11 +60,7 @@ export default function Booking(props) {
 
     }, [mentorID]);
 
-    const [filters, setFilters] = useState({
-        mentorID: mentorID,
 
-        // title_like: '',
-    })
 
 
     async function SearchBookingList() {
@@ -61,8 +68,8 @@ export default function Booking(props) {
             history.push("/login")
         } else {
             try {
-
-                const requestURL = `http://118.69.123.51:5000/test/api/appointment/search_available_appointment?mentorID=${mentorID}`;
+                const paramsString = queryString.stringify(filters);
+                const requestURL = `http://118.69.123.51:5000/test/api/appointment/search_available_appointment?mentorID=${mentorID}&${paramsString}`;
 
                 const response = await fetch(requestURL, {
                     method: `GET`,
@@ -75,7 +82,11 @@ export default function Booking(props) {
 
                 const { data, pagination } = responseJSON;
                 setpostList(responseJSON?.data?.rows);
-
+                setPagination({
+                    page: filters.page,
+                    pageSize: 10,
+                    count: data?.count,
+                });
 
             } catch (error) {
                 console.log('Fail to fetch product list: ', error)
@@ -173,6 +184,16 @@ export default function Booking(props) {
             console.log('Fail to fetch product list: ', error)
         }
     }
+
+    function handlePageChange(newPage) {
+        console.log('new page: ', newPage);
+        setFilters({
+          ...filters,
+          page: newPage,
+        })
+      }
+    
+
     console.log(123, mentorID);
     return (
         <div className="mt-20">
@@ -241,7 +262,7 @@ export default function Booking(props) {
                     </tbody>
                 </table>
 
-                {/* <Pagination className=" mx-5" /> */}
+                <Pagination pagination={pagination} onPageChange={handlePageChange} />
 
                 <Footer />
             </Header>

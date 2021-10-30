@@ -168,7 +168,7 @@ function User() {
                                 <th className="  "></th>
                             </tr>
                         </thead>
-                        <GetAccount posts={postList} postss={postRoleList} pagination={pagination}  parentCallback={callbackFunction} spec={postSpecList} onDelete={() => featchPostList()} />
+                        <GetAccount posts={postList} postss={postRoleList} pagination={pagination} parentCallback={callbackFunction} spec={postSpecList} onDelete={() => featchPostList()} />
 
 
 
