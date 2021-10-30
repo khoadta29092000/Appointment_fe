@@ -38,16 +38,7 @@ export default function AboutUs() {
       
       
       
-      
-      <footer id="content-footer">
-        <p>Say hi to me on these social networks:</p>
-          <ul id="social">
 
-            
-          </ul>
-       
-      </footer>
-               
 
                 <Footer />
             </Header>
