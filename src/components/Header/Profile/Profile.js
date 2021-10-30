@@ -51,13 +51,13 @@ function Profile(props) {
                     name: postList
                 }
             }}
-                className="my-link "> My subject</NavLink></li>)
+                className="my-link "> My Subject</NavLink></li>)
     }
     let passRole;
     if (postList.isUpdatePassword == true) {
         passRole = ( <div>Change Password </div>)
    }else{
-       passRole = (<div>Update PassWord</div>)
+       passRole = (<div>Update Password</div>)
    }
 
 

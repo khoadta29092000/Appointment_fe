@@ -50,7 +50,7 @@ function ChangePassword(props) {
                             console.log(result)
                             if (result?.resultCode === 1) {
                                
-                                alert('Update Thành Công')
+                                alert('Update Successfully')
                                 history.push("/")
 
                             } else {
