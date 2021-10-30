@@ -18,6 +18,7 @@ export default function ModalRequest(props) {
     }, [props?.subject, props?.appointment])
     
     async function UpdateAppointment(e) {
+    
         let body = {
             statusID : e
         }
@@ -47,7 +48,7 @@ export default function ModalRequest(props) {
                 throw ('Invalid Token')
             })
         return body
-        }
+         }
  
     return (
         <div className="clear-both mb-0 ">
@@ -66,8 +67,8 @@ export default function ModalRequest(props) {
                 <p className=" font-bold pb-2">Individual of group: <a className="font-normal " >{props.group}</a>  </p>
                 <p className=" font-bold pb-2">Question: <a className="font-normal " >{props.question}</a>  </p>
                 <div className="text-center">
-                    <button className="h-12 w-32 m-4 bg-red-700 border-2" onChange={e => setValue(3)} onClick={() => UpdateAppointment(3)}>Accept</button>
-                    <button className="h-12 w-32 m-4 bg-red-700 border-2" onChange={e => setValue(4)} onClick={() => UpdateAppointment(4)} >Cancel</button>
+                    <button className="h-12 w-32 m-4 bg-red-700 border-2"  onClick={() => UpdateAppointment(3)}>Accept</button>
+                    <button className="h-12 w-32 m-4 bg-red-700 border-2"  onClick={() => UpdateAppointment(1)} >Cancel</button>
                 </div>
 
             </div>

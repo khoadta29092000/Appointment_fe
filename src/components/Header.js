@@ -106,6 +106,7 @@ function Header(props) {
         <ul id="header-app-store" className=" mx-auto my-auto justify-center" >
 
           {adminDashboardButtons}
+          <NavLink activeStyle={{ backgroundColor: '#F2E9E4', color: '#000000' , height : "80px"}} to="/aboutus" className="my-link leading-80"><li><p>About Us</p></li></NavLink>
           <NavLink activeStyle={{ backgroundColor: '#F2E9E4', color: '#000000' , height : "80px"}} to="/subject" className="my-link leading-80"><li><p>Subject</p></li></NavLink>
           <NavLink activeStyle={{ backgroundColor: '#F2E9E4', color: '#000000' , height : "80px" }} to="/mentor" className="my-link leading-80"><li><p>Mentor</p></li></NavLink>
 

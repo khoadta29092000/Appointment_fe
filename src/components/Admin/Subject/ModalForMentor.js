@@ -10,6 +10,7 @@ export default function ModalForMentor(props) {
     const [selectedMentor, setselectedMentor] = useState([])
     const [mentorList, setMentorList] = useState([])
     let body;
+    let bodyDelete;
 
     useEffect(() => {
         let tmp = props?.mentor?.map(cc => {
@@ -35,14 +36,36 @@ export default function ModalForMentor(props) {
         }
     }, [mentorList]);
 
-    
+
     async function updateMentorForSubject() {
-        body = {
-            mentorID: mentorID,
-            subjectID: props?.isClickedParent?.id
+        let prevMentorList = props?.isClickedParent?.mentorList
+        let deletedMentor = []
+        let updatedMentor = []
+        console.log(prevMentorList)
+        console.log(selectedMentor)
+
+        for (const item of prevMentorList) {
+            let checkIndex = selectedMentor.findIndex(ele => ele?.value === item?.id)
+            if (checkIndex === -1) {
+                deletedMentor.push(item)
+            }
         }
 
+        for (const item of selectedMentor) {
+            let checkIndex = prevMentorList.findIndex(ele => ele?.id === item?.value)
+            if (checkIndex === -1) {
+                updatedMentor.push(item)
+            }
+        }
+        const idDeleteMentor = deletedMentor?.map(id => (id.id))
+        const idUpdatedMentor = updatedMentor?.map(id => (id.value))
+        console.log(idDeleteMentor)
+        console.log(idUpdatedMentor)
 
+        body = {
+            mentorID: idUpdatedMentor,
+            subjectID: props?.isClickedParent?.id
+        }
         let res = await fetch("http://118.69.123.51:5000/test/api/subject/add_mentor_to_subject", {
             method: `POST`,
             headers: {
@@ -55,7 +78,7 @@ export default function ModalForMentor(props) {
             .then(result => {
                 console.log(result)
                 if (result?.resultCode === 1) {
-                   
+
                     props?.onUpdate();
                     props?.onModal()
                     props.parentCallback(result?.message);
@@ -66,28 +89,92 @@ export default function ModalForMentor(props) {
             .catch((error) => {
                 throw ('Invalid Token')
             })
-        return body
+
+
+        if (idDeleteMentor != "") {
+            bodyDelete = {
+                mentorID: idDeleteMentor,
+                subjectID: props?.isClickedParent?.id
+            }
+            let res1 = await fetch(`http://118.69.123.51:5000/test/api/subject/delete_mentor_subject`, {
+                method: `DELETE`,
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+                body: JSON.stringify(bodyDelete)
+            }).then(res1 => res1.json())
+                .then(result => {
+
+                    if (result?.resultCode === 1) {
+                        props?.onUpdate();
+                        props?.onModal()
+                    } else {
+
+                    }
+                    return res1
+
+                })
+                .catch((error) => {
+                    throw ('Invalid Token')
+                })
+            body = {
+                mentorID: idUpdatedMentor,
+                subjectID: props?.isClickedParent?.id
+            }
+            let res = await fetch("http://118.69.123.51:5000/test/api/subject/add_mentor_to_subject", {
+                method: `POST`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-token')}`,
+                },
+                body: JSON.stringify(body)
+
+            }).then(res => res.json())
+                .then(result => {
+                    console.log(result)
+                    if (result?.resultCode === 1) {
+
+                        props?.onUpdate();
+                        props?.onModal()
+                        props.parentCallback(result?.message);
+                    }
+                }
+
+                )
+                .catch((error) => {
+                    throw ('Invalid Token')
+                })
+
+        }
+
+
+
+
     }
 
 
     function onChangeInput(value) {
         console.log("value", value);
-      const list =  props?.isClickedParent?.mentorList?.map(list =>{
-         return  list.id
+        const list = props?.isClickedParent?.mentorList?.map(list => {
+            return list.id
         })
         const nameMentor = value?.filter((mentor, index) => {
-                  if(mentor.value != list[index]){
-                      return mentor.value
-                  }})
-        const nameList =  props?.isClickedParent?.mentorList?.map(list => (list.id))        
-       const updateMentor = nameMentor?.map(update => (update.value))
+            if (mentor.value != list[index]) {
+                return mentor.value
+            }
+        })
+        const nameList = props?.isClickedParent?.mentorList?.map(list => (list.id))
+
+        const updateMentor = nameMentor?.map(update => (update.value))
         setMentorID(updateMentor)
         setselectedMentor(value)
-      
+
     }
-    
-  
-    
+
+
+
 
     return (
 
@@ -100,12 +187,12 @@ export default function ModalForMentor(props) {
                 </div>
             </div>
             <div className="  mx-14 text-black mb-5  text-3xl">
-                   <div>Subject Name:<a className=" ml-6
+                <div>Subject Name:<a className=" ml-6
                     font-normal text-xanhnhat    ">{props?.isClickedParent?.name}</a></div>
-               </div>
-   
+            </div>
+
             <div className="  mx-14 text-black  text-3xl">
-                   
+
                 <div>Mentor:</div>
                 <Select
                     //onChange ={e => setMentorID(options.value) }

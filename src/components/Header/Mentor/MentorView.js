@@ -39,7 +39,18 @@ export default function MentorView (props) {
         }
     }
    const subjectForMentor = postList?.map((subject, index) => {
-        return  subject.name
+        return  (
+            <Link
+            key={index}
+            to={{
+                pathname: "/subject/view",
+                state: {
+                    name: subject.id
+                    }
+            }} className="my-link mt-10 col-span-2 ">
+            <button className="font-normal hover:text-xanh   cursor-pointer ">{subject.name} , </button>
+        </Link>
+      )
     })
 console.log(123123, props?.location?.state?.name);
         return (
@@ -60,10 +71,8 @@ console.log(123123, props?.location?.state?.name);
                                 <p className="font-bold text-2xl mb-7">Email:<a className="font-normal"> {props?.location?.state?.name?.email}</a> </p>
                                 <p className="font-bold text-2xl mb-7">Name:<a className="font-normal"> {props?.location?.state?.name?.fullName}</a> </p>
                                 <p className="font-bold text-2xl mb-7">Id:<a className="font-normal"> {props?.location?.state?.name?.code}</a> </p>
-                                <p className="font-bold  text-2xl mb-7">Subject:<a className="font-normal"> {subjectForMentor.join(" | ")}</a> </p>
-
-
-
+                                <p className="font-bold  text-2xl mb-7">Subject: {subjectForMentor}</p>
+                                
                             </div>
                             <Link
                                 to={{

@@ -30,6 +30,7 @@ import UpdatePassword from "./components/Header/Login/UpdatePassword";
 import UpdateProfile from "./components/Header/Profile/UpdateProfile";
 import ChangePassword from "./components/Header/Profile/ChangePassword";
 import SubjectForMentor from "./components/Header/Profile/SubjectForMentor";
+import AboutUs from "./components/Header/AboutUs/AboutUs";
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
         <Switch>
           
           <Route exact path="/" component={Home} />
+          <Route exact path="/aboutus" component={AboutUs} />
           <Route exact path="/mentordashboard" component={GetViewDashboard} />
           <Route exact path="/mentordashboard/viewhistory" component={ViewHistory} />
           <Route exact path="/mentordashboard/scheduling" component={SchedulingMenter} />

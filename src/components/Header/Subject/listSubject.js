@@ -29,7 +29,7 @@ function ListSubject(props) {
                     }} exact to={{
                         pathname: "/subject/view",
                         state: {
-                            name: post
+                            name: post.id
                         }
                     }} className="my-link text-black border-b-2 border-black" >    View
                     </NavLink></td>

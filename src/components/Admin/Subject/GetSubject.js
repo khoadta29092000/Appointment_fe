@@ -93,8 +93,8 @@ function GetSubject(props) {
     }
 
     const callbackFunction = (childData) => {
-    
-        {props.parentCallback(childData)}
+
+        { props.parentCallback(childData) }
     };
 
     return (
@@ -114,7 +114,7 @@ function GetSubject(props) {
                                 return <option key={postSpec?.id}>{postSpec?.name}</option>
                             }
                         })}</td>
-                        <td className=" text-xanhla ">{post.mentorList.map(name => (name.fullName)).join(", ").slice(0,20). concat("...")}</td>
+                        <td className=" text-xanhla ">{post.mentorList.map(name => (name.fullName)).join(", ").slice(0, 20).concat("...")}</td>
                         <td className=" font-bold cursor-pointer">
 
                             <button type="button" className="font-bold " onClick={() => showModalForMentor(post, mentor)}  >
@@ -136,8 +136,8 @@ function GetSubject(props) {
             <Modal show={show} handleClose={hideModal} className="mb-5">
                 {chooseModal == 1 ? <ModalForSubject isClickedParent={selectedSubject} parentCallback={callbackFunction} spec={selectedSpec} onModal={() => setShow(false)} onUpdate={() => props.onDelete()} />
                     : <ModalForMentor
-                    isClickedParent={selectedSubject}
-                    mentor={selectedMentor} onModal={() => setShow(false)} onUpdate={() => props.onDelete()}  parentCallback={callbackFunction} />}
+                        isClickedParent={selectedSubject}
+                        mentor={selectedMentor} onModal={() => setShow(false)} onUpdate={() => props.onDelete()} parentCallback={callbackFunction} />}
             </Modal>
         </tbody>
     );

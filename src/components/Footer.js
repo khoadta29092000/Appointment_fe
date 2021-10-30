@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import logo from './image/logo.png';
+import { Link } from 'react-router-dom';
 
 export default class Footer extends Component {
 
@@ -8,7 +9,8 @@ export default class Footer extends Component {
 
             <footer className="text-center w-full grid grid-cols-footer  justify-center border-t-2 border-xanhla pt-16  mb-8 mt-20  ">
               <div className="  w-full ml-32  justify-center items-center">
-                <img className="h-20   w-250 float-left" src={logo} alt="logo" />
+              <Link to="/">  <img className="h-20   w-250 float-left" src={logo} alt="logo" /></Link>
+              
               </div>
                 <div className="   text-left grid grid-cols-3    w-full     pt-8 text-lg font-semibold  " >
                     <div className="mb-16 "><h1>HÀ NỘI<br />
