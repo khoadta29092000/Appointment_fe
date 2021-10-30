@@ -124,7 +124,7 @@ export default function SubjectView(props) {
                                     exact to={{
                                         pathname: "/booking",
                                         state: {
-                                            subject: subjectDetail
+                                            subject: mentor
                                         }
                                     }} className="bg-xanhla mt-5 rounded-xl px-10 text-white  py-3"> Choose Subject </Link>
                             </div>
